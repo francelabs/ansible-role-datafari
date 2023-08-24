@@ -13,3 +13,4 @@ iptables-persistent
 zip
 iputils-ping
 python3
+python3-pip

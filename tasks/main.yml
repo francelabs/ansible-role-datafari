@@ -8,18 +8,25 @@
     cache_valid_time: 3600
   vars:
     packages: "{{ lookup('file', '../files/apt').splitlines() }}"
+
+- name: Install psutil
+  ansible.builtin.pip:
+    name: psutil
+
 - name: Add or modify nofile soft and hard limits for all users
   community.general.pam_limits:
     domain: '*'
     limit_type: '-'
     limit_item: nofile
     value: 100000
+
 - name: Add or modify nofile soft and hard limits for all users
   community.general.pam_limits:
     domain: '*'
     limit_type: '-'
     limit_item: nproc
     value: 100000
+
 - name: Download Datafari
   ansible.builtin.get_url:
     url: https://www.datafari.com/files/debian/datafari_{{ datafari_version }}.deb
@@ -49,7 +56,6 @@
     chdir: /opt/datafari/bin
   when: init_state.stdout.find('active') == -1
 
-
 - name: Getting process IDs of the Datafari Tomcat processes
   community.general.pids:
       pattern: .*tomcat.*
@@ -61,4 +67,4 @@
   args:
     cmd: bash -c ". /etc/profile && ./start-datafari.sh > /opt/datafari/logs/start-datafari.txt"
     chdir: /opt/datafari/bin
-  when: pids_of_datafari == ""
+  when: pids_of_datafari.pids is not defined or pids_of_datafari.pids|length==0

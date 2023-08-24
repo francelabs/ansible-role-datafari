@@ -1,0 +1,22 @@
+---
+
+galaxy_info:
+  role_name: datafari
+  author: francelabs
+  description: Role to install Datafari Community Edition
+  company: France Labs
+  license: license Apache-2.0
+  min_ansible_version: 2.5
+  platforms:
+    - name: Debian
+      versions:
+        - bullseye
+    - name: Ubuntu
+      versions:
+        - jammy
+  galaxy_tags:
+    - search
+    - apache
+    - solr
+    - manifoldcf
+    - datafari

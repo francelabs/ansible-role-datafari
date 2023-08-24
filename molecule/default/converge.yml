@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: true
+
+  pre_tasks:
+
+    - name: Ensure Ansible temp directory exists
+      file:
+        path: /tmp/ansible
+        state: directory
+        mode: 0777
+  roles:
+    - alvistack.openjdk
+    - francelabs.datafari
+
+  vars:
+    openjdk_release: "11"
+    ansible_python_interpreter: /usr/bin/python3

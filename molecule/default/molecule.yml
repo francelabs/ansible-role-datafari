@@ -1,0 +1,35 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: ansible-galaxy-requirements.yml
+    requirements-file: ansible-galaxy-requirements.yml
+    ignore-errors: true
+    force: false
+    roles-path: ~/.ansible/roles
+driver:
+  name: docker
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+platforms:
+  - name: francelabs.datafari
+    image: "alvistack/debian-11"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    cgroupns_mode: host
+    privileged: true
+    pre_build_image: true
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      remote_tmp: /tmp/ansible
+    ssh_connection:
+      pipelining: true
+  inventory:
+    group_vars:
+      all:
+        datafari_version: 5.5

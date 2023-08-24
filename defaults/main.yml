@@ -1,0 +1,9 @@
+---
+# Datafari version to install. Minimum supported version is 5.5
+datafari_version: 5.5
+
+# Password for Datafari, MCF and Postgresql
+password: admin
+
+# Download Datafari into this directory.
+datafari_download_dir: /tmp

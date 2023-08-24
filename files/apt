@@ -1,0 +1,15 @@
+curl
+debconf
+unzip
+sudo
+libc6-dev
+jq
+lsof
+apache2
+openssl
+libapache2-mod-jk
+iptables
+iptables-persistent
+zip
+iputils-ping
+python3
